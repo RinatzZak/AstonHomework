@@ -2,7 +2,7 @@ package org.rinatzzak;
 
 import java.util.Comparator;
 
-public class Test {
+public class CheckingMethods {
     public static void main(String[] args) {
         MyArrayList<CatForTest> cats = new MyArrayList<>();
         cats.add(new CatForTest(5, "Max"));
@@ -50,6 +50,12 @@ public class Test {
             System.out.println(cats.get(i));
         }
 
+        System.out.println();
+
+        cats.add(0, new CatForTest(99, "FFF"));
+        for (int i = 0; i < cats.size(); i++) {
+            System.out.println(cats.get(i));
+        }
         System.out.println();
 
         System.out.println("Проверяем метод очищения списка");
