@@ -28,6 +28,20 @@ class MyArrayListTest {
     }
 
     @Test
+    void testAddWithIndex() {
+        MyArrayList<CatForTest> catsForAdd = new MyArrayList<>();
+        catsForAdd.add(maxCat);
+        catsForAdd.add(lisaCat);
+        catsForAdd.add(0, barsikCat);
+        CatForTest barsik = catsForAdd.get(0);
+        CatForTest max = catsForAdd.get(1);
+        CatForTest lisa = catsForAdd.get(2);
+        assertThat(barsik, hasProperty("name", equalTo("Barsik")));
+        assertThat(max, hasProperty("name", equalTo("Max")));
+        assertThat(lisa, hasProperty("name", equalTo("Lisa")));
+    }
+
+    @Test
     void get() {
         CatForTest cat = expected.get(1);
         assertThat(cat, hasProperty("name", equalTo("Lisa")));
