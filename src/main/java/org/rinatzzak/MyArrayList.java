@@ -7,6 +7,8 @@ public class MyArrayList<T> {
     private int size = 0;
     private Object[] array;
 
+    private int currentIndex;
+
     public MyArrayList() {
         this.array = new Object[INIT_CAPACITY];
     }
@@ -26,6 +28,29 @@ public class MyArrayList<T> {
             increaseCapacity();
         }
         array[size] = element;
+        size++;
+    }
+
+    /**
+     * Метод для добавления элемента по заданному индексу.
+     * Проверяем индекс на валидность и если удовлетворяет условиям, то
+     * создаем новый массив с размером, большим на единицу
+     * копируем левую часть массива в новый массив до указанного индекса
+     * копируем правую часть массива в новый массив со сдвигом index + 1
+     * после этого присваиваем элементу, указанный при вводе индекс
+     * @param index - позиция в массиве, куда необходимо добавить элемент
+     * @param element - элемент, который необходимо добавить в массив
+     */
+    public void add(int index, T element) {
+        checkIndexValid(index);
+        if (index == array.length) {
+            increaseCapacity();
+        }
+        Object[] tempArray = array;
+        array = new Object[tempArray.length + 1];
+        System.arraycopy(tempArray, 0, array, 0, index);
+        System.arraycopy(tempArray, index, array, index + 1,  tempArray.length - index);
+        array[index] = element;
         size++;
     }
 
