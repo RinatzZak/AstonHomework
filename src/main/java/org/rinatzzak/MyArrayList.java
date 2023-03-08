@@ -2,10 +2,18 @@ package org.rinatzzak;
 
 import java.util.Comparator;
 
-public class MyArrayList<T extends Comparable> {
+public class MyArrayList<T> {
     private final int INIT_CAPACITY = 10;
     private int size = 0;
-    private Object[] array = new Object[INIT_CAPACITY];
+    private Object[] array;
+
+    public MyArrayList() {
+        this.array = new Object[INIT_CAPACITY];
+    }
+
+    public MyArrayList(int capacity) {
+        this.array = new Object[capacity];
+    }
 
     /**
      * Метод для добавления элемента в MyArrayList.
@@ -51,9 +59,10 @@ public class MyArrayList<T extends Comparable> {
      */
     public void remove(int index) {
         checkIndexValid(index);
-        Object[] tempArray = new Object[array.length - 1];
-        System.arraycopy(array, 0, tempArray, 0, index);
-        System.arraycopy(array, index + 1, tempArray, index, array.length - index - 1);
+        Object[] tempArray = array;
+        array = new Object[tempArray.length - 1];
+        System.arraycopy(tempArray, 0, array, 0, index);
+        System.arraycopy(tempArray, index + 1, array, index, tempArray.length - index - 1);
         size--;
     }
 
@@ -125,7 +134,7 @@ public class MyArrayList<T extends Comparable> {
      * @param comparator - Comparator<T> comparator, для обозначения, по какому признаку проводить сортировку
      * @param <T> - тип элементов, входящих в список для сортировки
      */
-    private static <T extends Comparable> void quickSort(MyArrayList<T> arrayList, int low, int high, Comparator<T> comparator) {
+    private static <T> void quickSort(MyArrayList<T> arrayList, int low, int high, Comparator<T> comparator) {
         //создаем две переменные для обозначения индекса, leftIndex ставится на начало массива,
         // rightIndex ставится на конец массива
         int leftIndex = low;
